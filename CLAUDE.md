@@ -1,0 +1,12 @@
+- This project is a private Passbolt installation.
+- This will be deployed to Railway and utilize Supabase.
+- Do not store passwords, keys, or other secure credentials outside of .env or in the codebase.
+- Initialize the project with Git.
+- Analyze the documentation thoroughly before beginning.
+- Ask clarifying questions one at a time.
+- Utilize GitGuardian MCP.
+- Verify there is a pre-commit hook to run GitGuardian before commits every time.
+- Optimize the Variables and deployment process for Railway, which will auto deploy upon Git commit and push.
+- Install Context7 MCP and download the documentation for Passbolt https://context7.com/websites/passbolt then read all of the documentation and summarize the key points that pertain to our project.
+- Install GitGuardian MCP and create a pre-commit hook. Run a test to verify it catches them.
+- Reference all security credentials using variables that pull from the .env
