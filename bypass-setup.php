@@ -19,9 +19,9 @@ try {
     echo "✓ Connected to database\n\n";
     
     // Check current admin user
-    echo "Checking current admin user...\n";
+    echo "Checking Spencer admin user...\n";
     $stmt = $pdo->prepare("SELECT id, username, active, deleted FROM users WHERE username = ?");
-    $stmt->execute(['admin@theportlandcompany.com']);
+    $stmt->execute(['spencerhill@theportlandcompany.com']);
     $admin = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($admin) {
@@ -54,7 +54,7 @@ try {
         } else {
             echo "No tokens found. Creating new setup token...\n";
             chdir('/usr/share/php/passbolt');
-            $output = shell_exec('./bin/cake passbolt recover_user --username="admin@theportlandcompany.com" 2>&1');
+            $output = shell_exec('./bin/cake passbolt recover_user --username="spencerhill@theportlandcompany.com" 2>&1');
             echo $output;
         }
         

@@ -10,8 +10,8 @@ echo "=======================\n\n";
 // Set working directory
 chdir('/usr/share/php/passbolt');
 
-echo "Generating recovery token for admin user...\n";
-$command = './bin/cake passbolt recover_user --username="admin@theportlandcompany.com" 2>&1';
+echo "Generating recovery token for Spencer admin user...\n";
+$command = './bin/cake passbolt recover_user --username="spencerhill@theportlandcompany.com" 2>&1';
 $output = shell_exec($command);
 echo $output;
 
