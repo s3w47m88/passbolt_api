@@ -22,7 +22,7 @@ echo "Database: " . (getenv('DATASOURCES_DEFAULT_DATABASE') ?: 'not set') . "\n\
 echo "Using hardcoded values for testing:\n";
 $host = 'mysql.railway.internal';
 $user = 'root';
-$pass = 'fbLifSlquYxetOalWxSTZYe';
+$pass = 'fbLifSlquYxetOalWxSTZYecHwOKIqgM';
 $db = 'railway';
 echo "Host: $host\n";
 echo "User: $user\n";
@@ -31,7 +31,7 @@ echo "Database: $db\n\n";
 // Use hardcoded values since env vars aren't accessible in PHP
 $host = 'mysql.railway.internal';
 $user = 'root';
-$pass = 'fbLifSlquYxetOalWxSTZYe';
+$pass = 'fbLifSlquYxetOalWxSTZYecHwOKIqgM';
 $db = 'railway';
 
 echo "Testing MySQL connection...\n";
