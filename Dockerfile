@@ -7,6 +7,9 @@ ENV APP_FULL_BASE_URL=https://passbolt.theportlandcompany.com
 # Trust Railway's proxy
 ENV PASSBOLT_SECURITY_PROXIES=*
 
+# Fix CSP headers for the domain
+ENV PASSBOLT_SECURITY_SET_HEADERS=false
+
 EXPOSE 80
 
 CMD ["/docker-entrypoint.sh"]
