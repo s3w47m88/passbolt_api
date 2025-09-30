@@ -22,6 +22,7 @@ COPY bypass-setup.php /usr/share/php/passbolt/webroot/bypass-setup.php
 COPY recover-admin.php /usr/share/php/passbolt/webroot/recover-admin.php
 COPY create-spencer-admin.php /usr/share/php/passbolt/webroot/create-spencer-admin.php
 COPY update-admin-email.php /usr/share/php/passbolt/webroot/update-admin-email.php
+COPY final-spencer-setup.php /usr/share/php/passbolt/webroot/final-spencer-setup.php
 
 EXPOSE 80
 
