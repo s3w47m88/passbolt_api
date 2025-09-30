@@ -25,6 +25,7 @@ COPY update-admin-email.php /usr/share/php/passbolt/webroot/update-admin-email.p
 COPY final-spencer-setup.php /usr/share/php/passbolt/webroot/final-spencer-setup.php
 COPY test-email.php /usr/share/php/passbolt/webroot/test-email.php
 COPY debug-email.php /usr/share/php/passbolt/webroot/debug-email.php
+COPY fix-email-config.php /usr/share/php/passbolt/webroot/fix-email-config.php
 
 EXPOSE 80
 
