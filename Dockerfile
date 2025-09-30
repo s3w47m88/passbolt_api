@@ -16,6 +16,8 @@ COPY init.php /usr/share/php/passbolt/webroot/init.php
 COPY setup.php /usr/share/php/passbolt/webroot/setup.php
 COPY setup-database.php /usr/share/php/passbolt/webroot/setup-database.php
 COPY create-admin.php /usr/share/php/passbolt/webroot/create-admin.php
+COPY force-admin-setup.php /usr/share/php/passbolt/webroot/force-admin-setup.php
+COPY setup-first-admin.php /usr/share/php/passbolt/webroot/setup-first-admin.php
 
 EXPOSE 80
 
