@@ -27,6 +27,7 @@ COPY test-email.php /usr/share/php/passbolt/webroot/test-email.php
 COPY debug-email.php /usr/share/php/passbolt/webroot/debug-email.php
 COPY fix-email-config.php /usr/share/php/passbolt/webroot/fix-email-config.php
 COPY check-gpg-keys.php /usr/share/php/passbolt/webroot/check-gpg-keys.php
+COPY fix-gpg-keys.php /usr/share/php/passbolt/webroot/fix-gpg-keys.php
 
 EXPOSE 80
 
