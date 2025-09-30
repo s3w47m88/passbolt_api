@@ -44,8 +44,11 @@ try {
     chdir('/usr/share/php/passbolt');
     system('./bin/cake passbolt migrate 2>&1');
     
+    echo "\n\nGenerating GPG keys...\n";
+    system('./bin/cake passbolt create_gpg_keys 2>&1');
+    
     echo "\n\nInstalling Passbolt...\n";
-    system('./bin/cake passbolt install --no-admin --force 2>&1');
+    system('./bin/cake passbolt install --no-admin 2>&1');
     
     echo "\n\nClearing cache...\n";
     system('./bin/cake cache clear_all 2>&1');
