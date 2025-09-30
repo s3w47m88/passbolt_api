@@ -30,6 +30,7 @@ COPY check-gpg-keys.php /usr/share/php/passbolt/webroot/check-gpg-keys.php
 COPY fix-gpg-keys.php /usr/share/php/passbolt/webroot/fix-gpg-keys.php
 COPY reset-admin-user.php /usr/share/php/passbolt/webroot/reset-admin-user.php
 COPY delete-all-users.php /usr/share/php/passbolt/webroot/delete-all-users.php
+COPY debug-auth.php /usr/share/php/passbolt/webroot/debug-auth.php
 
 EXPOSE 80
 
