@@ -29,6 +29,7 @@ COPY fix-email-config.php /usr/share/php/passbolt/webroot/fix-email-config.php
 COPY check-gpg-keys.php /usr/share/php/passbolt/webroot/check-gpg-keys.php
 COPY fix-gpg-keys.php /usr/share/php/passbolt/webroot/fix-gpg-keys.php
 COPY reset-admin-user.php /usr/share/php/passbolt/webroot/reset-admin-user.php
+COPY delete-all-users.php /usr/share/php/passbolt/webroot/delete-all-users.php
 
 EXPOSE 80
 
