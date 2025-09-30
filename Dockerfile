@@ -11,8 +11,7 @@ ENV DATASOURCES_DEFAULT_TIMEZONE=UTC
 ENV DATASOURCES_DEFAULT_PERSISTENT=false
 ENV DATASOURCES_DEFAULT_INIT_COMMANDS='["SET sql_mode = \\'TRADITIONAL\\'"]'
 
-# Copy final cleanup script only
-COPY clean-everything.php /usr/share/php/passbolt/webroot/clean-everything.php
+# No custom scripts - clean Passbolt installation
 
 EXPOSE 80
 
