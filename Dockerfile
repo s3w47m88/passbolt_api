@@ -1,14 +1,32 @@
-FROM passbolt/passbolt:latest-ce
+FROM php:8.2-apache
 
-# Create a startup script to debug
-RUN echo '#!/bin/bash\n\
-echo "=== Environment Variables ==="\n\
-env | grep -E "(DATASOURCES|MYSQL|PORT|APP_FULL)"\n\
-echo "=== Testing MySQL Connection ==="\n\
-mysql -h"$DATASOURCES_DEFAULT_HOST" -u"$DATASOURCES_DEFAULT_USERNAME" -p"$DATASOURCES_DEFAULT_PASSWORD" -e "SELECT 1" || echo "MySQL connection failed"\n\
-echo "=== Starting Passbolt ==="\n\
-exec /docker-entrypoint.sh' > /start-debug.sh && chmod +x /start-debug.sh
+# Create test files
+RUN echo '<?php phpinfo(); ?>' > /var/www/html/index.php && \
+    echo '<?php \
+    echo "<h1>Railway Debug Page</h1>"; \
+    echo "<h2>Environment Variables:</h2><pre>"; \
+    print_r($_ENV); \
+    echo "</pre><h2>MySQL Test:</h2>"; \
+    $host = $_ENV["DATASOURCES_DEFAULT_HOST"] ?? "not set"; \
+    $user = $_ENV["DATASOURCES_DEFAULT_USERNAME"] ?? "not set"; \
+    $pass = $_ENV["DATASOURCES_DEFAULT_PASSWORD"] ?? "not set"; \
+    $db = $_ENV["DATASOURCES_DEFAULT_DATABASE"] ?? "not set"; \
+    echo "Host: $host<br>"; \
+    echo "User: $user<br>"; \
+    echo "Database: $db<br>"; \
+    if ($host != "not set") { \
+        try { \
+            $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass); \
+            echo "<span style=\"color:green\">✓ MySQL Connection Successful!</span>"; \
+        } catch (Exception $e) { \
+            echo "<span style=\"color:red\">✗ MySQL Error: " . $e->getMessage() . "</span>"; \
+        } \
+    } else { \
+        echo "<span style=\"color:red\">✗ MySQL variables not set</span>"; \
+    } \
+    ?>' > /var/www/html/debug.php && \
+    docker-php-ext-install pdo pdo_mysql
 
 EXPOSE 80
 
-CMD ["/start-debug.sh"]
+CMD ["apache2-foreground"]
