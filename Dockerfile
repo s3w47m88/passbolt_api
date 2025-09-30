@@ -24,6 +24,7 @@ COPY create-spencer-admin.php /usr/share/php/passbolt/webroot/create-spencer-adm
 COPY update-admin-email.php /usr/share/php/passbolt/webroot/update-admin-email.php
 COPY final-spencer-setup.php /usr/share/php/passbolt/webroot/final-spencer-setup.php
 COPY test-email.php /usr/share/php/passbolt/webroot/test-email.php
+COPY debug-email.php /usr/share/php/passbolt/webroot/debug-email.php
 
 EXPOSE 80
 
