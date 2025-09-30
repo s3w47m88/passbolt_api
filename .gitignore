@@ -3,6 +3,7 @@
 .env.local
 .env.production
 .env*.local
+deploy-railway.sh
 
 # GPG Keys (will be generated in container)
 *.asc
