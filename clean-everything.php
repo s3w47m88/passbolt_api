@@ -1,11 +1,11 @@
 <?php
-// Delete ALL users to allow clean setup through interface
-// Access this at https://passbolt.theportlandcompany.com/delete-all-users.php
+// Delete all users and clean everything for user self-registration
+// Access this at https://passbolt.theportlandcompany.com/clean-everything.php
 
 header('Content-Type: text/plain');
 
-echo "Delete All Users - Clean Setup\n";
-echo "==============================\n\n";
+echo "Clean Everything - Remove All Users\n";
+echo "===================================\n\n";
 
 // Get database credentials from environment
 $host = getenv('DATASOURCES_DEFAULT_HOST') ?: 'mysql.railway.internal';
@@ -18,7 +18,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "✓ Connected to database\n\n";
     
-    echo "Deleting ALL user data for clean setup...\n";
+    echo "Deleting ALL user-related data...\n";
     
     // Delete all authentication tokens
     $stmt = $pdo->prepare("DELETE FROM authentication_tokens");
@@ -44,9 +44,15 @@ try {
     $count = $stmt->rowCount();
     echo "✓ Deleted $count users\n";
     
+    // Delete all roles_users entries
+    $stmt = $pdo->prepare("DELETE FROM roles_users");
+    $stmt->execute();
+    $count = $stmt->rowCount();
+    echo "✓ Deleted $count role assignments\n";
+    
     echo "\n=================================\n";
-    echo "ALL USERS DELETED!\n";
-    echo "You can now set up through the normal Passbolt interface.\n";
+    echo "ALL USERS AND SCRIPTS REMOVED!\n";
+    echo "Database is clean for your own registration.\n";
     echo "Go to: https://passbolt.theportlandcompany.com\n";
     
 } catch (Exception $e) {
