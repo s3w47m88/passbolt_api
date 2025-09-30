@@ -14,6 +14,7 @@ ENV DATASOURCES_DEFAULT_INIT_COMMANDS='["SET sql_mode = \\'TRADITIONAL\\'"]'
 # Copy scripts to webroot
 COPY init.php /usr/share/php/passbolt/webroot/init.php
 COPY setup.php /usr/share/php/passbolt/webroot/setup.php
+COPY setup-database.php /usr/share/php/passbolt/webroot/setup-database.php
 
 EXPOSE 80
 
