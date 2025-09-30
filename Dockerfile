@@ -19,6 +19,7 @@ COPY create-admin.php /usr/share/php/passbolt/webroot/create-admin.php
 COPY force-admin-setup.php /usr/share/php/passbolt/webroot/force-admin-setup.php
 COPY setup-first-admin.php /usr/share/php/passbolt/webroot/setup-first-admin.php
 COPY bypass-setup.php /usr/share/php/passbolt/webroot/bypass-setup.php
+COPY recover-admin.php /usr/share/php/passbolt/webroot/recover-admin.php
 
 EXPOSE 80
 
