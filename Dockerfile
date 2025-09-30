@@ -7,8 +7,9 @@ ENV PASSBOLT_SECURITY_PROXIES=*
 ENV PASSBOLT_SECURITY_SET_HEADERS=false
 ENV DATASOURCES_DEFAULT_DRIVER=Mysql
 
-# Copy init script to webroot
+# Copy scripts to webroot
 COPY init.php /usr/share/php/passbolt/webroot/init.php
+COPY setup.php /usr/share/php/passbolt/webroot/setup.php
 
 EXPOSE 80
 
