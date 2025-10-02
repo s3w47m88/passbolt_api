@@ -11,8 +11,7 @@ ENV DATASOURCES_DEFAULT_TIMEZONE=UTC
 ENV DATASOURCES_DEFAULT_PERSISTENT=false
 ENV DATASOURCES_DEFAULT_INIT_COMMANDS='["SET sql_mode = \\'TRADITIONAL\\'"]'
 
-# Initialize for installation wizard
-COPY init-empty-install.php /usr/share/php/passbolt/webroot/init-empty-install.php
+# Clean Passbolt installation with database schema
 
 EXPOSE 80
 
