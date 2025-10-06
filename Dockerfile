@@ -1,4 +1,5 @@
 FROM passbolt/passbolt:latest-ce
+RUN docker-php-ext-install gd
 
 # Environment configuration
 ENV PASSBOLT_SSL_FORCE=false
