@@ -4,8 +4,10 @@
 
 echo "Initializing Passbolt database..."
 
-# Install Passbolt database
-railway run --service passbolt_api "cd /usr/share/php/passbolt && ./bin/cake passbolt migrate --no-lock"
-railway run --service passbolt_api "cd /usr/share/php/passbolt && ./bin/cake passbolt install --no-admin --force"
+SERVICE="${SERVICE:-passbolt}"
+
+# Install Passbolt database (use SERVICE env to override target Railway service)
+railway run --service "$SERVICE" "cd /usr/share/php/passbolt && ./bin/cake passbolt migrate --no-lock"
+railway run --service "$SERVICE" "cd /usr/share/php/passbolt && ./bin/cake passbolt install --no-admin --force"
 
 echo "Database initialization complete!"

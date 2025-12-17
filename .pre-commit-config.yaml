@@ -1,0 +1,33 @@
+repos:
+  - repo: https://github.com/gitguardian/ggshield
+    rev: v1.26.0
+    hooks:
+      - id: ggshield
+        stages: [pre-commit, pre-push, manual]
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        files: \.sh$
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.10.0-1
+    hooks:
+      - id: shfmt
+        files: \.sh$
+  - repo: local
+    hooks:
+      - id: hadolint
+        name: hadolint
+        entry: scripts/hadolint.sh
+        language: script
+        files: ^Dockerfile$
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        files: \.(yml|yaml)$
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        files: \.(md|markdown)$

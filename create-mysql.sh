@@ -1,16 +1,12 @@
 #!/bin/bash
 
-# Create MySQL service via Railway API
-echo "Creating MySQL service in Railway..."
+# Create MySQL (MariaDB-compatible) service via Railway API
+echo "Creating MySQL (MariaDB-compatible) service in Railway..."
 
-# Get project and environment IDs from existing service
-PROJECT_ID="59160035-518a-4418-8e17-12f2c264e16b"
-ENVIRONMENT_ID="0b925f6a-74e7-4a69-92a2-2549b6ecdee3"
-
-# Use Railway CLI to create a MySQL database
+# Use Railway CLI to create a MySQL database (Railway's service runs a MariaDB-compatible engine)
 # This needs to be run in an interactive terminal
-cat << 'EOF'
-To create MySQL service in Railway, run ONE of these options:
+cat <<'EOF'
+To create MySQL/MariaDB service in Railway, run ONE of these options:
 
 Option 1: Via Railway Dashboard (Easiest)
 =========================================
