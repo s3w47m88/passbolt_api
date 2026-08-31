@@ -1,9 +1,8 @@
 repos:
-  - repo: https://github.com/gitguardian/ggshield
-    rev: v1.26.0
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
     hooks:
-      - id: ggshield
-        stages: [pre-commit, pre-push, manual]
+      - id: gitleaks
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:

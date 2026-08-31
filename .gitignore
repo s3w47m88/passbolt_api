@@ -14,3 +14,14 @@ docs/logs/
 docker-volumes/
 db_data/
 passbolt_gpg/
+
+# Secrets / keys — never commit GPG keys or scratch key files
+*.asc
+*.key
+*.pem
+*.p12
+*.pfx
+serverkey*
+serverkey_private*
+.tmp-*
+*private*.asc

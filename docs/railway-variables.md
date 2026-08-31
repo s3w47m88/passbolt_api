@@ -25,6 +25,9 @@ EMAIL_TRANSPORT_DEFAULT_PASSWORD=[your-resend-api-key]
 EMAIL_TRANSPORT_DEFAULT_TLS=true
 
 # Security / HTTPS
+# NOTE: these three are now baked into the Dockerfile as ENV defaults, so they
+# apply on every deploy even if omitted here. Setting them in Railway still works
+# and takes precedence.
 PASSBOLT_SSL_FORCE=true
 PASSBOLT_SECURITY_PROXIES=*
 PASSBOLT_SECURITY_SET_HEADERS=true
