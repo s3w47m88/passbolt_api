@@ -10,23 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install pre-commit
         run: pip install pre-commit
       - name: Run pre-commit (lint)
-        # gitleaks runs as a dedicated step below; skip the pre-commit copy here
-        # so CI does not build the Go hook and to keep secret scanning in one place.
+        # gitleaks runs as a dedicated step below; skip it here so CI
+        # does not build the Go hook and secret scanning stays in one place.
         run: SKIP=gitleaks pre-commit run --all-files --show-diff-on-failure
       - name: Secret scan (gitleaks)
         run: |
           VERSION=8.30.0
-          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz" \
-            | tar -xz gitleaks
-          ./gitleaks detect --redact --verbose --exit-code 1
+          BASE=https://github.com/gitleaks/gitleaks/releases/download
+          FILE=gitleaks_${VERSION}_linux_x64.tar.gz
+          curl -sSL "${BASE}/v${VERSION}/${FILE}" | tar -xz gitleaks
+          ./gitleaks detect --no-git --redact --verbose --exit-code 1
 
   build:
     runs-on: ubuntu-latest

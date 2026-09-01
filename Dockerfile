@@ -2,14 +2,15 @@
 # Upgraded from 4.6.2 (Apr 2024) to 5.15.0 to pick up 2+ years of security fixes.
 FROM passbolt/passbolt:5.15.0-1-ce
 
-# Secure-by-default hardening. These are read by Passbolt at runtime and can be
-# overridden by Railway service variables if ever needed.
-#   SET_HEADERS  -> emits X-Frame-Options, X-Content-Type-Options, Referrer-Policy, etc.
-#   SSL_FORCE    -> emits HSTS and upgrades http->https (behind the trusted proxy)
-#   SECURITY_PROXIES=* -> trust Railway's edge X-Forwarded-Proto so SSL_FORCE
-#                         does not cause a redirect loop
+# Secure-by-default hardening. Read by Passbolt at runtime; Railway service
+# variables override these if ever needed.
+#   SET_HEADERS  -> X-Frame-Options, X-Content-Type-Options, Referrer-Policy, etc.
+#   SECURITY_PROXIES=* -> trust Railway's edge X-Forwarded-Proto
+# NOTE: PASSBOLT_SSL_FORCE is intentionally NOT set here. On Railway's edge
+# (TLS terminated upstream) SSL_FORCE=true causes an infinite http<->https
+# redirect loop even with PROXIES=*, taking the login page down. HTTPS is
+# already enforced at the Railway edge (http 301 -> https), so we omit it.
 ENV PASSBOLT_SECURITY_SET_HEADERS=true \
-    PASSBOLT_SSL_FORCE=true \
     PASSBOLT_SECURITY_PROXIES=*
 
 # Install PHP extensions required by Passbolt that are not bundled in the base image

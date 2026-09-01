@@ -1,0 +1,28 @@
+# gitleaks configuration for this repo.
+# Extends the built-in default ruleset and adds narrow allowlists.
+#
+# CI scans the CURRENT working tree (gitleaks detect --no-git), not full
+# git history: this deployment repo's history is entangled with the full
+# upstream Passbolt source (minified JS, test GPG keys) which produces
+# thousands of irrelevant matches we cannot change. Scanning current files
+# still catches any secret we would actually ship.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Vendored upstream Passbolt source and build artifacts (not our code)"
+paths = [
+  '''passbolt_api/''',
+  '''passbolt_browser_extension/''',
+  '''mobile-passbolt-ios/''',
+  '''extensions/''',
+  '''output/''',
+  '''\.venv/''',
+]
+
+[[allowlists]]
+description = "Passbolt GPG server key FINGERPRINT is public, not a secret"
+regexTarget = "line"
+regexes = [
+  '''PASSBOLT_GPG_SERVER_KEY_FINGERPRINT''',
+]
