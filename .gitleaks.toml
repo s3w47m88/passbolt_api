@@ -1,0 +1,14 @@
+# gitleaks configuration for this repo.
+# Extends the built-in default ruleset and adds a narrow allowlist.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Passbolt GPG server key FINGERPRINT is public, not a secret"
+# Match against the whole line so any commit/file that assigns the
+# fingerprint env var is allowlisted. This does NOT allowlist the GPG
+# private key itself (that is never committed and stays caught).
+regexTarget = "line"
+regexes = [
+  '''PASSBOLT_GPG_SERVER_KEY_FINGERPRINT''',
+]
