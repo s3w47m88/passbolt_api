@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -27,7 +25,7 @@ jobs:
           BASE=https://github.com/gitleaks/gitleaks/releases/download
           FILE=gitleaks_${VERSION}_linux_x64.tar.gz
           curl -sSL "${BASE}/v${VERSION}/${FILE}" | tar -xz gitleaks
-          ./gitleaks detect --redact --verbose --exit-code 1
+          ./gitleaks detect --no-git --redact --verbose --exit-code 1
 
   build:
     runs-on: ubuntu-latest
