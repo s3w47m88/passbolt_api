@@ -35,6 +35,32 @@ RUN set -eux; \
     exit 1; \
   fi
 
+# --- Passbolt/Attachments plugin (end-to-end encrypted file attachments) ------
+# Additive and backward-compatible: new /attachments routes + table + an
+# optional `attachments` key in the v5 secret schema that stock clients ignore.
+# Server-side only for now; the forked web UI / extension ship after a browser
+# E2E test. Validated live against this exact base image before deploy.
+USER root
+COPY plugins/Passbolt/Attachments /usr/share/php/passbolt/plugins/Passbolt/Attachments
+COPY attachments-plugin-register.php /tmp/attachments-plugin-register.php
+RUN php /tmp/attachments-plugin-register.php && rm -f /tmp/attachments-plugin-register.php
+
+# Apply the plugin's migrations on container start (core entrypoint only runs
+# core migrations). One-shot supervisord program; see the conf for rationale.
+COPY deploy/attachments-migrate.conf /etc/supervisor/conf.d/attachments-migrate.conf
+
+# Raise body-size limits so encrypted blobs (up to ~25 MB) can be uploaded.
+# nginx: a conf.d snippet included inside the http{} block (valid context); do
+# NOT sed nginx.conf (its mail examples contain commented `server {` lines).
+RUN set -eux; \
+  mkdir -p /etc/nginx/conf.d; \
+  printf 'client_max_body_size 30m;\n' > /etc/nginx/conf.d/attachments.conf; \
+  for PHPDIR in /etc/php/*/fpm/conf.d /usr/local/etc/php/conf.d; do \
+    if [ -d "$PHPDIR" ]; then \
+      printf 'upload_max_filesize=30M\npost_max_size=30M\n' > "$PHPDIR/zz-attachments.ini"; \
+    fi; \
+  done
+
 EXPOSE 80
 
 CMD ["/docker-entrypoint.sh"]
