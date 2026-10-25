@@ -24,7 +24,7 @@ class Attachment extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'resource_id' => true,
         'filename' => true,
         'mime' => true,
@@ -38,7 +38,7 @@ class Attachment extends Entity
      *
      * @var array<string>
      */
-    protected $_hidden = [
+    protected array $_hidden = [
         'data',
     ];
 }
