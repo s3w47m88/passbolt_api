@@ -75,6 +75,15 @@ RUN set -eux; \
     if [ -f "$POOL" ]; then \
       printf '\nphp_admin_value[upload_max_filesize] = 50M\nphp_admin_value[post_max_size] = 50M\n' >> "$POOL"; \
     fi; \
+  done; \
+  # ROOT CAUSE of the ~5M cap: the Passbolt nginx site config passes
+  # `fastcgi_param PHP_VALUE "upload_max_filesize=5M ..."` on every request,
+  # which overrides php.ini/conf.d per-request. Raise it here so encrypted
+  # blobs up to the nginx client_max_body_size can be uploaded.
+  for SITE in /etc/nginx/sites-available/nginx-passbolt.conf /etc/nginx/sites-enabled/nginx-passbolt.conf; do \
+    if [ -f "$SITE" ]; then \
+      sed -i -E 's/upload_max_filesize=5M/upload_max_filesize=40M/g; s/post_max_size=32M/post_max_size=40M/g; s/client_max_body_size[[:space:]]+32M/client_max_body_size 40M/g' "$SITE"; \
+    fi; \
   done
 
 EXPOSE 80
