@@ -54,7 +54,14 @@ COPY deploy/attachments-migrate.conf /etc/supervisor/conf.d/attachments-migrate.
 # NOT sed nginx.conf (its mail examples contain commented `server {` lines).
 RUN set -eux; \
   mkdir -p /etc/nginx/conf.d; \
-  printf 'client_max_body_size 30m;\n' > /etc/nginx/conf.d/attachments.conf; \
+  { \
+    printf 'client_max_body_size 40m;\n'; \
+    printf 'client_body_buffer_size 1m;\n'; \
+    printf 'client_body_timeout 300s;\n'; \
+    printf 'proxy_read_timeout 300s;\n'; \
+    printf 'fastcgi_read_timeout 300s;\n'; \
+    printf 'fastcgi_send_timeout 300s;\n'; \
+  } > /etc/nginx/conf.d/attachments.conf; \
   for PHPDIR in /etc/php/*/fpm/conf.d /usr/local/etc/php/conf.d; do \
     if [ -d "$PHPDIR" ]; then \
       printf 'upload_max_filesize=30M\npost_max_size=30M\n' > "$PHPDIR/zz-attachments.ini"; \

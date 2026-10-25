@@ -36,7 +36,9 @@ class AttachmentsCreateController extends AppController
             throw new BadRequestException(__('A ciphertext file is required in the `data` field.'));
         }
         if ($file->getError() !== UPLOAD_ERR_OK) {
-            throw new BadRequestException(__('The attachment upload failed.'));
+            throw new BadRequestException(
+                __('The attachment upload failed (php upload error {0}).', (string)$file->getError())
+            );
         }
 
         $ciphertext = $file->getStream()->getContents();
