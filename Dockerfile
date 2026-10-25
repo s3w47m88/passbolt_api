@@ -64,7 +64,16 @@ RUN set -eux; \
   } > /etc/nginx/conf.d/attachments.conf; \
   for PHPDIR in /etc/php/*/fpm/conf.d /usr/local/etc/php/conf.d; do \
     if [ -d "$PHPDIR" ]; then \
-      printf 'upload_max_filesize=30M\npost_max_size=30M\n' > "$PHPDIR/zz-attachments.ini"; \
+      printf 'upload_max_filesize=50M\npost_max_size=50M\n' > "$PHPDIR/zz-attachments.ini"; \
+    fi; \
+  done; \
+  # Authoritative: php_admin_value in the fpm pool cannot be overridden by a
+  # later ini file, an env-driven entrypoint rewrite, or ini_set(). The base
+  # image was effectively capping uploads (~5M) at runtime despite conf.d; this
+  # guarantees the limit regardless of what else sets it.
+  for POOL in /etc/php/*/fpm/pool.d/www.conf /usr/local/etc/php-fpm.d/www.conf; do \
+    if [ -f "$POOL" ]; then \
+      printf '\nphp_admin_value[upload_max_filesize] = 50M\nphp_admin_value[post_max_size] = 50M\n' >> "$POOL"; \
     fi; \
   done
 
